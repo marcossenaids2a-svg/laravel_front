@@ -1,11 +1,200 @@
-@extends('layout.principal')
-@section('title', 'Início | Robótica LMT')
-@section('page-title', 'Painel Geral')
-@section('content')
-<div class="mb-4"><h1 class="h3 fw-bold mb-1">Olá, {{ session('usuario_nome', 'Usuário') }}</h1><p class="text-muted mb-0">Acompanhe o inventário e as solicitações do laboratório.</p></div>
-<div class="row g-3 mb-4">
-@foreach([['Total de materiais',$totalMateriais,'fa-box','Inventário cadastrado'],['Empréstimos ativos',$emprestimosAtivos,'fa-hand-holding','Itens em circulação'],['Pedidos pendentes',$pedidosPendentes,'fa-clipboard-list','Aguardando análise'],['Materiais em manutenção',$materiaisManutencao,'fa-screwdriver-wrench','Itens indisponíveis']] as [$label,$value,$icon,$sub])<div class="col-sm-6 col-xl-3"><div class="card card-clean p-3 h-100"><div class="d-flex justify-content-between"><div><div class="small text-muted text-uppercase">{{ $label }}</div><div class="fs-3 fw-bold mt-2">{{ $value }}</div><div class="small text-muted">{{ $sub }}</div></div><i class="fa-solid {{ $icon }} text-secondary mt-1"></i></div></div></div>@endforeach
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | Robótica LMT</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('dashboard.css') }}">
+</head>
+<body>
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <div class="brand-icon">R</div>
+            <div>
+                <strong>Robótica LMT</strong>
+                <small>SESI • Educação</small>
+            </div>
+        </div>
+
+        <p class="menu-label">MENU PRINCIPAL</p>
+
+        <a href="{{ route('dashboard') }}" class="menu-link active">
+            <span>▦</span> Visão geral
+        </a>
+
+        <a href="{{ route('materiais') }}" class="menu-link">
+            <span>▤</span> Materiais
+        </a>
+
+        <a href="{{ route('emprestimos') }}" class="menu-link">
+            <span>⇄</span> Empréstimos
+        </a>
+
+        <a href="{{ route('pedidos') }}" class="menu-link">
+            <span>☷</span> Pedidos
+        </a>
+
+        <div class="sidebar-bottom">
+            <div class="user-info">
+                <div class="avatar">A</div>
+                <div>
+                    <strong>Administrador</strong>
+                    <small>Acesso de demonstração</small>
+                </div>
+            </div>
+
+            <a href="{{ route('logout') }}" class="logout-link">
+                ↪ Sair do sistema
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <span class="breadcrumb-text">Robótica LMT /</span>
+                <strong> Visão geral</strong>
+            </div>
+            <span class="system-status">● Sistema demonstrativo</span>
+        </header>
+
+        <section class="page-content">
+            <div class="welcome-section">
+                <div>
+                    <h1>Painel Geral</h1>
+                    <p>Bem-vindo ao sistema de gerenciamento de materiais.</p>
+                </div>
+                <span class="date-label">SESI • ROBÓTICA E LMT</span>
+            </div>
+
+            <div class="stats-grid">
+                <article class="stat-card">
+                    <span class="stat-icon red">▤</span>
+                    <p>Total de materiais</p>
+                    <h2>248</h2>
+                    <small>Materiais cadastrados</small>
+                </article>
+
+                <article class="stat-card">
+                    <span class="stat-icon blue">⇄</span>
+                    <p>Empréstimos ativos</p>
+                    <h2>12</h2>
+                    <small>Em andamento</small>
+                </article>
+
+                <article class="stat-card">
+                    <span class="stat-icon orange">☷</span>
+                    <p>Pedidos pendentes</p>
+                    <h2>5</h2>
+                    <small>Aguardando análise</small>
+                </article>
+
+                <article class="stat-card">
+                    <span class="stat-icon green">⚙</span>
+                    <p>Em manutenção</p>
+                    <h2>3</h2>
+                    <small>Materiais em reparo</small>
+                </article>
+            </div>
+
+            <div class="content-grid">
+                <section class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Visão do estoque</h3>
+                            <p>Exemplo de distribuição de materiais</p>
+                        </div>
+                    </div>
+
+                    <div class="chart-placeholder">
+                        <div class="chart-row">
+                            <span>Robótica</span>
+                            <div class="chart-track">
+                                <div class="chart-bar bar-one"></div>
+                            </div>
+                            <strong>80%</strong>
+                        </div>
+
+                        <div class="chart-row">
+                            <span>Eletrônica</span>
+                            <div class="chart-track">
+                                <div class="chart-bar bar-two"></div>
+                            </div>
+                            <strong>65%</strong>
+                        </div>
+
+                        <div class="chart-row">
+                            <span>Matemática</span>
+                            <div class="chart-track">
+                                <div class="chart-bar bar-three"></div>
+                            </div>
+                            <strong>45%</strong>
+                        </div>
+
+                        <div class="chart-row">
+                            <span>Informática</span>
+                            <div class="chart-track">
+                                <div class="chart-bar bar-four"></div>
+                            </div>
+                            <strong>30%</strong>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Acesso rápido</h3>
+                            <p>Navegue pelo sistema</p>
+                        </div>
+                    </div>
+
+                    <a href="#" class="quick-link">
+                        <span class="quick-icon">＋</span>
+                        <span>
+                            <strong>Materiais</strong>
+                            <small>Consultar o inventário</small>
+                        </span>
+                        <span class="arrow">›</span>
+                    </a>
+
+                    <a href="#" class="quick-link">
+                        <span class="quick-icon">⇄</span>
+                        <span>
+                            <strong>Empréstimos</strong>
+                            <small>Consultar empréstimos</small>
+                        </span>
+                        <span class="arrow">›</span>
+                    </a>
+
+                    <a href="#" class="quick-link">
+                        <span class="quick-icon">☷</span>
+                        <span>
+                            <strong>Pedidos</strong>
+                            <small>Consultar solicitações</small>
+                        </span>
+                        <span class="arrow">›</span>
+                    </a>
+                </section>
+            </div>
+
+            <div class="demo-notice">
+                <strong>Modo de demonstração:</strong>
+                os números apresentados são fictícios e não representam
+                o estoque real do laboratório.
+            </div>
+
+        </section>
+    </main>
+
 </div>
-<div class="row g-3"><div class="col-xl-5"><div class="card card-clean p-4 h-100"><h2 class="h6 fw-bold">Movimentações dos últimos 7 dias</h2><p class="small text-muted">Empréstimos registrados por dia</p><div class="d-flex align-items-end justify-content-around border-bottom" style="height:220px">@php($maxMov = max(1, $movimentacoes->max('total')))@foreach($movimentacoes as $mov)<div class="d-flex flex-column align-items-center justify-content-end h-100 gap-2"><span class="small">{{ $mov['total'] ?: '' }}</span><div class="rounded-top {{ $loop->last ? 'bg-danger' : 'bg-dark' }}" style="width:22px;height:{{ max(4, (int)($mov['total'] / $maxMov * 145)) }}px"></div><span class="small text-muted">{{ $mov['dia'] }}</span></div>@endforeach</div></div></div>
-<div class="col-xl-7"><div class="card card-clean p-4 h-100"><div class="d-flex justify-content-between align-items-center mb-2"><div><h2 class="h6 fw-bold mb-1">Empréstimos recentes</h2><p class="small text-muted mb-0">Últimas retiradas registradas</p></div><a href="{{ route('emprestimos.index') }}" class="small text-danger">Ver todos</a></div><div class="table-responsive"><table class="table table-sm align-middle mb-0"><thead><tr><th>Material</th><th>Usuário</th><th>Data</th><th>Status</th></tr></thead><tbody>@forelse($recentes as $emprestimo)<tr><td>{{ $emprestimo->material->nome ?? '—' }}</td><td>{{ $emprestimo->usuario->nome ?? '—' }}</td><td>{{ $emprestimo->data_emprestimo }}</td><td><span class="badge {{ $emprestimo->status==='devolvido'?'text-bg-success':($emprestimo->status==='atrasado'?'text-bg-danger':'text-bg-warning') }}">{{ ucfirst($emprestimo->status) }}</span></td></tr>@empty<tr><td colspan="4" class="text-center text-muted py-4">Ainda não há empréstimos.</td></tr>@endforelse</tbody></table></div></div></div></div>
-@endsection
+
+</body>
+</html>

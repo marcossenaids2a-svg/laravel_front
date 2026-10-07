@@ -1,21 +1,35 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmprestimoController;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\PedidoController;
-use App\Http\Middleware\EnsureUsuarioAutenticado;
-use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn () => redirect()->route('dashboard'));
-Route::get('/login', [LoginController::class, 'index'])->name('login');
-Route::post('/login', [LoginController::class, 'login'])->name('login.entrar');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+// Login
+Route::get('/', [LoginController::class, 'index'])->name('login');
 
-Route::middleware(EnsureUsuarioAutenticado::class)->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('materiais', MaterialController::class);
-    Route::resource('emprestimos', EmprestimoController::class);
-    Route::resource('pedidos', PedidoController::class);
-});
+Route::get('/login', [LoginController::class, 'index']);
+
+Route::post('/login', [LoginController::class, 'login'])
+    ->name('login.entrar');
+
+// Dashboard
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->name('dashboard');
+
+// Sair
+Route::get('/logout', [LoginController::class, 'logout'])
+    ->name('logout');
+
+
+Route::get('/materiais', [MaterialController::class, 'index'])
+    ->name('materiais');
+
+Route::get('/emprestimos', [EmprestimoController::class, 'index'])
+    ->name('emprestimos');
+
+
+Route::get('/pedidos', [PedidoController::class, 'index'])
+    ->name('pedidos');
