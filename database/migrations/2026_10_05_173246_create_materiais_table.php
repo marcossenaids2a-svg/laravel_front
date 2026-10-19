@@ -26,14 +26,6 @@ return new class extends Migration
 
             $table->string('estado')->default('Disponível');
             $table->string('tipo_material')->nullable();
-
-            $table->string('foto')->nullable();
-            $table->string('qr_code')->nullable();
-
-            $table->date('data_cadastro')->nullable();
-            $table->date('atualizado_em')->nullable();
-
-            $table->timestamps();
         });
     }
 

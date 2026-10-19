@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Localizacao extends Model
 {
     protected $table = 'localizacoes';
-    protected $fillable = ['nome', 'descricao'];
+
+    protected $fillable = [
+        'nome',
+        'descricao'
+    ];
 }

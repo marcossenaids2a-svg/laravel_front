@@ -13,6 +13,6 @@ class Emprestimo extends Model
         'data_emprestimo',
         'data_devolucao',
         'status',
-        'observacao'
+        'observacao',
     ];
 }
